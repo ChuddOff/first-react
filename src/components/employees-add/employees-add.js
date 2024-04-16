@@ -1,24 +1,29 @@
 import { useState } from 'react'
 
-import EmployeesItem from '../employees-item/employees-item';
 import './employees-add.css';
 
-const EmployeesAdd = () => {
+const EmployeesAdd = ({data, newEmployee}) => {
 
-    const NewEmployee = (text, number) => {
+    
+
+    const [text, setText] = useState('')
+    const [number, setNumber] = useState('')
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
         if (text && number) {
-            return <EmployeesItem name="Chudd Off" salary={text} increase={number}/>
+            newEmployee({ name: text, salary: number, increase: false, rise: false, id: data.length + 1 });
+            setText('');
+            setNumber('');
         }
-    }
-
-    const [text, setText] = useState()
-    const [number, setNumber] = useState()
+    };
 
     return (
         <div className="app-add-form">
             <h3>Добавьте нового сотрудника</h3>
             <form
-                className="add-form d-flex">
+                className="add-form d-flex"
+                onSubmit={handleSubmit}>
                 <input type="text"
                     className="form-control new-post-label"
                     placeholder="Как его зовут?"
@@ -31,8 +36,9 @@ const EmployeesAdd = () => {
                     onChange={(e) => {setNumber(+e.target.value)}} />
 
                 <button type="submit"
-                    className="btn btn-outline-light"
-                    onSubmit={NewEmployee(text, number)}>Добавить</button>
+                    className="btn btn-outline-light">
+                Добавить
+                </button>
             </form>
         </div> 
     )

@@ -1,25 +1,19 @@
-import { useState } from 'react'
 
 import './employees-item.css';
 
-const EmployeesItem = ({name, salary, increase, key, onDelete}) => {
-
-    const [increaseOnClick, increaseChange] = useState(increase);
-    const [starOnClick, starChange] = useState(false);
-
-    console.log(key);
+const EmployeesItem = ({name, salary, increase, rise, onDelete, increaseToggle, riseToggle, id}) => {
 
     let classNames = 'list-group-item d-flex justify-content-between'
-    if (increaseOnClick) {
+    if (increase) {
         classNames += ' increase'
-    } if (starOnClick) {
+    } if (rise) {
         classNames += ' like'
     }
-
+    
     return(
         <li className={classNames}>
             <span className="list-group-item-label"
-            onClick={() => {starChange(!starOnClick)}}>{name}</span>
+            onClick={() => riseToggle(id)}>{name}</span>
             <input 
             type="text" 
             className="list-group-item-input" 
@@ -27,13 +21,13 @@ const EmployeesItem = ({name, salary, increase, key, onDelete}) => {
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"
                     className="btn-cookie btn-sm "
-                    onClick={() => {increaseChange(!increaseOnClick)}}>
+                    onClick={() => increaseToggle(id)}>
                     <i className="fas fa-cookie"></i>
                 </button>
 
                 <button type="button"
                         className="btn-trash btn-sm "
-                        onClick={onDelete(key)}>
+                        onClick={() => onDelete(id)}>
                     <i className="fas fa-trash"></i>
                 </button>
                 <i className="fas fa-star"></i>

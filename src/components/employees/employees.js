@@ -1,28 +1,39 @@
 import EmployeesItem from '../employees-item/employees-item';
 
-import { useState } from 'react'
 import './employees.css'
 
-const Employees = ({data}) => {
+const Employees = ({data, ban, filter, search, increaseToggle, riseToggle, onDelete}) => {
+    let el = data.filter(item => {
+        return item.name.split(" ").some(el => el.toLowerCase().startsWith(search.toLowerCase()))
+    })
 
-    const [ban, banAdd] = useState([]);
+    switch (filter) {
+        case 'Up':
+            el = el.filter(item => item.increase === true);
+            break;
+        case '1000':
+            el = el.filter(item => item.salary >= 1000)
+            break;
+        default:
+            break;
+    }
 
-    const el = data.map(item => {
+    const elResalt = el.filter(item => !ban.includes(item.id)).map(item => {
         const {id, ...elseProps} = item;
         return (
             <EmployeesItem 
-            {...elseProps} 
-            key={id}
-            onDelete={(idItem) => {
-                console.log(idItem);
-                return banAdd([...ban, idItem])
-            }} />
+            {...elseProps}
+            onDelete = {idItem => onDelete(idItem)}
+            id={id}
+            increaseToggle = {id => increaseToggle(id)}
+            riseToggle = {id => riseToggle(id)}
+            key={id}/>
         )
     }) 
 
     return (
         <ul className="app-list list-group employees">
-            {el}
+            {elResalt}
         </ul>
     )
 }
