@@ -5,6 +5,9 @@
     border-radius: 4px;
     box-shadow: 15px 15px 30px rgba(0,0,0, .15);
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .add-form {
@@ -16,4 +19,7 @@
 .add-form input {
     max-width: 350px;
     margin-right: 20px;
+}
+.add-form button {
+    max-width: 350px;
 }

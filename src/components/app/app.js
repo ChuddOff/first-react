@@ -40,7 +40,9 @@ function App() {
 
     return (
         <div className="app">
-            <AppInfo />
+            <AppInfo
+            all={data.length-ban.length}
+            up={data.filter(item => item.increase == true).length} />
 
             <div className="app-search">
                 <SearchPanel
